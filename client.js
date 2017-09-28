@@ -1,7 +1,10 @@
 const WebSocket = require("ws")
 const readline = require("readline")
 
-const ws = new WebSocket("ws://localhost:8080")
+const url = process.env.CHAT_SERVER || 'localhost'
+const port = process.env.PORT || 8080
+
+const ws = new WebSocket(`ws://${url}:${port}`)
 
 const rl = readline.createInterface({input: process.stdin, output: process.stdout})
 
