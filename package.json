@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "eslint": "^4.7.2",
     "ws": "^3.2.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint *js"
   },
   "keywords": [],
   "author": "",
