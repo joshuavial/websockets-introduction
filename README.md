@@ -4,7 +4,7 @@ Welcome to websockets, let's build a chat room.
 
 You will need three terminal windows open for this challenge - one for the server and two for the chat clients.
 
-In the server run `node server.js` and in the client windows `node client.js` - to exit the server use ^C and read the client.js code to see how to exit the client.
+In the server run `npm start` and in the client windows `npm run client` - to exit the server use ^C and read the client.js code to see how to exit the client :)
 
 ## Step 0: Skim the docs
 Familiarize yourself with the concept of websockets, ws npm package and readline node library
@@ -17,7 +17,7 @@ Familiarize yourself with the concept of websockets, ws npm package and readline
 
 Have a look at the code in server.js, look up anything you are unfamiliar with in the [ws docs](https://github.com/websockets/ws/blob/HEAD/doc/ws.md)
 
-```
+```javascript
 const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ port: 8080 });
@@ -34,7 +34,7 @@ wss.on('connection', (ws) => {
 ## Step 2: connect a websockets client
 Now have a look at the clint code - try putting in console.logs or moving code around in the server and client and see if you can predict what will happen.
 
-```
+```javascript
 const WebSocket = require('ws')
 const readline = require('readline')
 
