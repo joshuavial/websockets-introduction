@@ -7,7 +7,7 @@ const TEST_PORT = 8088
 
 beforeEach(() => {
   this.wss = new WebSocket.Server({port: TEST_PORT})
-  this.rl = { prompt: sinon.stub(), on: sinon.stub(), close: sinon.stub() }
+  this.rl = { on: sinon.stub(), close: sinon.stub() }
   this.log = sinon.stub()
   this.ws = createClient('localhost', TEST_PORT, this.log, this.rl)
 })

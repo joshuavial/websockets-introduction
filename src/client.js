@@ -6,12 +6,10 @@ function startClient(url, port, log, rl) {
   log("Welcome to tech-gym chat")
 
   ws.on("open", () => {
-    rl.prompt()
     rl.on("line", (input) => { processLine(input, rl, ws) })
 
     ws.on('message', (message) => {
-      log(`\n${message}`)
-      rl.prompt()
+      log(message)
     })
   })
   return ws
@@ -23,7 +21,6 @@ function processLine(input, rl, ws) {
     ws.close()
   } else {
     ws.send(input)
-    rl.prompt()
   }
 }
 
