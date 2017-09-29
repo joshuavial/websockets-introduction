@@ -22,23 +22,38 @@ test('server says hello on connection', (done) => {
   })
 })
 
-test('server responds to echo', (done) => {
-  this.ws.on('open', () => {
-    this.ws.send('echo')
-    this.ws.on("message", (message) => {
-      if ((message) == 'echo') { done() }
-    })
-  })
-})
-
 test('broadcasts message to other clients', (done) => {
   const otherClient = new WebSocket(`ws://localhost:${TEST_PORT}`)
   this.ws.on('open', () => {
     otherClient.on('open', () => {
       this.ws.send('hello world')
       otherClient.on('message', (message) => {
-        if (message == 'hello world') done()
+        if (message == 'anon: hello world') done()
       })
     })
   })
 })
+
+test('broadcasts message includes name', (done) => {
+  const otherClient = new WebSocket(`ws://localhost:${TEST_PORT}`)
+  this.ws.on('open', () => {
+    otherClient.on('open', () => {
+      this.ws.send('/i test')
+      this.ws.send('hello world')
+      otherClient.on('message', (message) => {
+        if (message == 'test: hello world') done()
+      })
+    })
+  })
+})
+
+test('user sets username with /i', (done) => {
+  this.ws.on('open', () => {
+    this.ws.send('/i test-user')
+    this.ws.send('/whoami')
+    this.ws.on('message', (message) => {
+      if (message == 'test-user') done( )
+    })
+  })
+})
+
