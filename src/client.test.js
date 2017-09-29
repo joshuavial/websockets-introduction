@@ -7,7 +7,7 @@ const TEST_PORT = 8088
 
 beforeEach(() => {
   this.wss = new WebSocket.Server({port: TEST_PORT})
-  this.rl = { prompt: sinon.stub(), on: sinon.stub() }
+  this.rl = { prompt: sinon.stub(), on: sinon.stub(), close: sinon.stub() }
   this.log = sinon.stub()
   this.ws = createClient('localhost', TEST_PORT, this.log, this.rl)
 })
@@ -27,7 +27,7 @@ test('sends message from readline to server', (done) => {
   })
 })
 
-test('close connection with /q', () => {
+test('close connection with /q', (done) => {
   this.wss.on('connection', (server) => {
     this.ws.on('open', () => {
       sendLine(this.rl, '/q')
