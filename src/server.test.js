@@ -67,3 +67,20 @@ test('/user can se help with /i', (done) => {
 
 })
 
+test('send private message to a user', (done) => {
+  const friend = new WebSocket(`ws://localhost:${TEST_PORT}`)
+  const otherClient = new WebSocket(`ws://localhost:${TEST_PORT}`)
+  this.ws.on('open', () => {
+    friend.on('open', () => {
+      friend.send('/i friend')
+      this.ws.send('/i test')
+      this.ws.send('/d friend private message')
+      otherClient.on('message', (message) => {
+        if (message.match(/private message/)) done('private message sent to third party')
+      })
+      friend.on('message', (message) => {
+        if (message == 'test(dm): private message') done()
+      })
+    })
+  })
+})

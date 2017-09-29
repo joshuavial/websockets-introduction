@@ -5,7 +5,6 @@ function startServer(port, log) {
   log(`Tech gym slack server running on ws://localhost:${port}`)
   wss.on("connection", (ws) => {
     ws.send("Oh! Let's go!")
-    helpCommand(ws)
     ws.on("message", (message) => { respondToMessage(message, ws, wss, log) })
     ws.on("close", () => { log("Another one bites the dust") })
   })
@@ -26,14 +25,27 @@ function respondToMessage(message, ws, wss, log) {
 }
 
 function respondToCommand(message, ws, wss) {
-  if (message.match(/^\/i\s(.*)/i)) {
-    const name = message.match(/^\/i\s(.*)/i)[1]
-    ws.name = name
-  } else if (message == '/h') {
-    helpCommand(ws)
-  } else if (message == '/whoami') {
-    ws.send(ws.name)
+  const args = message.match(/^\/([^\s]+)\s*(.*)/i)
+  const command = args[1]
+  const params = args[2]
+  const commands = {
+    'i': () => { ws.name = params },
+    'h': () => { helpCommand(ws) },
+    'd': () => { privateMessage(params, wss, ws) },
+    'whoami': () => { ws.send(ws.name) }
   }
+  if (commands[command]) commands[command]()
+}
+
+function privateMessage(params, wss, ws) {
+  const matches = params.match(/^([^\s]+)\s(.*)/i)
+  const recipient = matches[1]
+  const msg = matches[2]
+  wss.clients.forEach((client) => {
+    if (client.name == recipient) {
+      client.send(`${ws.name || 'anon'}(dm): ${msg}`)
+    }
+  })
 }
 
 function helpCommand(ws) {
