@@ -57,3 +57,13 @@ test('user sets username with /i', (done) => {
   })
 })
 
+test('/user can se help with /i', (done) => {
+  this.ws.on('open', () => {
+    this.ws.send('/h')
+    this.ws.on('message', (message) => {
+      if (message.match(/\/whoami/i)) done( )
+    })
+  })
+
+})
+

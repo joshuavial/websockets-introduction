@@ -5,6 +5,7 @@ function startServer(port, log) {
   log(`Tech gym slack server running on ws://localhost:${port}`)
   wss.on("connection", (ws) => {
     ws.send("Oh! Let's go!")
+    helpCommand(ws)
     ws.on("message", (message) => { respondToMessage(message, ws, wss, log) })
     ws.on("close", () => { log("Another one bites the dust") })
   })
@@ -28,9 +29,20 @@ function respondToCommand(message, ws, wss) {
   if (message.match(/^\/i\s(.*)/i)) {
     const name = message.match(/^\/i\s(.*)/i)[1]
     ws.name = name
+  } else if (message == '/h') {
+    helpCommand(ws)
   } else if (message == '/whoami') {
     ws.send(ws.name)
   }
+}
+
+function helpCommand(ws) {
+  ws.send([
+    '/h : see this help message',
+    '/i [name] : set your name for the chat',
+    '/whoami : display your current name',
+    '[message] : send a message to other participants'
+  ].join('\n'))
 }
 
 module.exports = startServer
