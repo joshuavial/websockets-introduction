@@ -16,12 +16,16 @@ function respondToMessage(message, ws, wss, log) {
   if (message[0] == '/') {
     respondToCommand(message, ws, wss)
   } else {
-    wss.clients.forEach((client) => {
-      if (client != ws && client.readyState === WebSocket.OPEN) {
-        client.send(`${ws.name || 'anon'}: ${message}`)
-      }
-    })
+    broadcastMessage(message, ws, wss)
   }
+}
+
+function broadcastMessage(message, ws, wss) {
+  wss.clients.forEach((client) => {
+    if (client != ws && client.readyState === WebSocket.OPEN) {
+      client.send(`${ws.name || 'anon'}: ${message}`)
+    }
+  })
 }
 
 function respondToCommand(message, ws, wss) {
