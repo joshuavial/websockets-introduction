@@ -5,14 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "eslint": "^4.7.2",
+    "jest": "^21.2.1",
     "ws": "^3.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sinon": "^4.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "client": "node client.js",
-    "lint": "eslint *js"
+    "start": "node scripts/start-server.js",
+    "client": "node scripts/start-client.js",
+    "lint": "eslint **/*.js"
   },
   "keywords": [],
   "author": "",
