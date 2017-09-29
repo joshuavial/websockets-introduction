@@ -31,3 +31,14 @@ test('server responds to echo', (done) => {
   })
 })
 
+test('broadcasts message to other clients', (done) => {
+  const otherClient = new WebSocket(`ws://localhost:${TEST_PORT}`)
+  this.ws.on('open', () => {
+    otherClient.on('open', () => {
+      this.ws.send('hello world')
+      otherClient.on('message', (message) => {
+        if (message == 'hello world') done()
+      })
+    })
+  })
+})
