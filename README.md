@@ -4,6 +4,8 @@ Welcome to websockets, let's build a chat room.
 
 You will need three terminal windows open for this challenge - one for the server and two for the chat clients.
 
+[**Checkout the video overview**](https://youtu.be/uBdckqmdwbI)
+
 In the server run `npm start` and in the client windows `npm run client` - to exit the server use ^C and read the client.js code to see how to exit the client :)
 
 ## Step 0: Skim the docs
