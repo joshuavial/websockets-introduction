@@ -67,7 +67,7 @@ Figure out a way that each client can set a username so other people know who a 
 ## Step 5: send a list of commands when a user sends /h
 Let's make the server a little friendlier and have it send a help message with all the instructions available.
 
-## Step 6: send a private message to a user using /d [username] [message\
+## Step 6: send a private message to a user using /d [username] [message]
 Create the ability for a user to send a message to just one other client.
 
 # Stretch Goals
