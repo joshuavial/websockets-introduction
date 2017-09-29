@@ -1,10 +1,7 @@
 const WebSocket = require("ws")
-const readline = require("readline")
 
-function startClient(url, port, log) {
+function startClient(url, port, log, rl) {
   const ws = new WebSocket(`ws://${url}:${port}`)
-
-  const rl = readline.createInterface({input: process.stdin, output: process.stdout})
 
   log("Welcome to tech-gym chat")
 
@@ -24,6 +21,7 @@ function startClient(url, port, log) {
       rl.prompt()
     })
   })
+  return ws
 }
 
 module.exports = startClient

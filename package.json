@@ -12,7 +12,7 @@
     "sinon": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node scripts/start-server.js",
     "client": "node scripts/start-client.js",
     "lint": "eslint **/*.js"
